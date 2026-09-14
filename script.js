@@ -1,5 +1,5 @@
 const fileInput = document.getElementById("followers-input");
-const outputLabel = document.getElementById("output-label");
+const output = document.getElementById("output");
 
 fileInput.addEventListener('change', function (event) {
     // event.target.files contains the list of files selected by the user
@@ -18,6 +18,7 @@ fileInput.addEventListener('change', function (event) {
         const rawText = e.target.result;
         const parsedData = JSON.parse(rawText);
         console.log("Successfully parsed JSON data:", parsedData.Greeting);
+        output.innerHTML = `${parsedData.Greeting}`
     };
 
     // Start reading the file as plain text
