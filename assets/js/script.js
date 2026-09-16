@@ -1,51 +1,44 @@
 document.addEventListener("DOMContentLoaded", () => {
     const followersInput = document.getElementById("followers-input");
     const followingInput = document.getElementById("following-input");
-    const followersOutput = document.getElementById("followers-output");
-    const followingOutput = document.getElementById("following-output");
+    const followersOutput = document.getElementById("selected-followers");
+    const followingOutput = document.getElementById("selected-following");
 
     let followersSet = null;
     let followingList = null;
 
-    // Process Followers File
     followersInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            followersOutput.textContent = `Selected: ${file.name}`;
+        }
+
         readFile(event, (parsedData) => {
-            // Store just usernames in a Set for fast lookup
-            followersSet = new Set(
-                parsedData.map((user) => user.string_list_data[0].value)
-            );
+            followersSet = new Set(parsedData.map((user) => user.string_list_data[0].value));
 
-            console.log(`Followers size: ${followersSet.size}`)
-            console.log(`Followers set: ${parsedData.map((user) => user.string_list_data[0].value)}`)
-
-            // Render followers list UI
-            //followersOutput.innerHTML = parsedData
-            //    .map((user) => `<p>${user.string_list_data[0].value}</p>`)
-            //    .join("");
-
-            if (followersSet !== null && followingList !== null)
+            if (followersSet !== null && followingList !== null) {
                 checkAndCompare(followersSet, followingList);
+            }
         });
     });
 
-    // Process Following File
     followingInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            followingOutput.textContent = `Selected: ${file.name}`;
+        }
+
         readFile(event, (parsedData) => {
-            followingList = parsedData.relationships_following.map((item) => ({
-                username: item.title,
-                href: getCleanInstagramUrl(item.title)
-            })).filter(user => !user.username.startsWith("__deleted__"));
+            followingList = parsedData.relationships_following
+                .map((item) => ({
+                    username: item.title,
+                    href: getCleanInstagramUrl(item.title)
+                }))
+                .filter(user => !user.username.startsWith("__deleted__"));
 
-            console.log(`Following size: ${followingList.length}`)
-            console.log(`Following list: ${followingList.map(user => user.username)}`)
-
-            // Render following list UI
-            //followingOutput.innerHTML = followingList
-            //    .map((user) => `<p>${user.username}</p>`)
-            //    .join("");
-
-            if (followersSet !== null && followingList !== null)
+            if (followersSet !== null && followingList !== null) {
                 checkAndCompare(followersSet, followingList);
+            }
         });
     });
 });
@@ -73,9 +66,6 @@ function checkAndCompare(followersSet, followingList) {
     const nonFollowers = followingList
         .filter(user => !followersSet.has(user.username));
 
-    console.log("Non-followers count:", nonFollowers.length);
-    console.log("Non-followers:", nonFollowers);
-
     // Convert followingList to a Set of usernames for O(1) lookup
     const followingSet = new Set(followingList.map(u => u.username));
 
@@ -87,9 +77,6 @@ function checkAndCompare(followersSet, followingList) {
             href: getCleanInstagramUrl(username)
         }));
 
-    console.log("Fans count:", fans.length);
-    console.log("Fans:", fans);
-
     renderResults(nonFollowers, fans);
 }
 
@@ -99,6 +86,18 @@ function renderResults(nonFollowers, fans) {
 
     // Clear previous output safely
     resultsOutput.replaceChildren();
+
+    // Create Search Bar Container
+    const searchContainer = document.createElement("div");
+    searchContainer.className = "search-container";
+
+    const searchInput = document.createElement("input");
+    searchInput.type = "text";
+    searchInput.id = "search-input";
+    searchInput.placeholder = "Search usernames...";
+    searchInput.autocomplete = "off";
+
+    searchContainer.appendChild(searchInput);
 
     // Create Tab Header Container
     const tabsHeader = document.createElement("div");
@@ -131,6 +130,9 @@ function renderResults(nonFollowers, fans) {
         fansBtn.classList.remove("active");
         nonFollowersPanel.classList.add("active");
         fansPanel.classList.remove("active");
+
+        // Re-apply search filter when switching tabs
+        filterUserCards(searchInput.value);
     });
 
     fansBtn.addEventListener("click", () => {
@@ -138,9 +140,18 @@ function renderResults(nonFollowers, fans) {
         nonFollowersBtn.classList.remove("active");
         fansPanel.classList.add("active");
         nonFollowersPanel.classList.remove("active");
+
+        // Re-apply search filter when switching tabs
+        filterUserCards(searchInput.value);
+    });
+
+    // Real-Time Search Event Listener
+    searchInput.addEventListener("input", (e) => {
+        filterUserCards(e.target.value);
     });
 
     // Mount everything to the output container
+    resultsOutput.appendChild(searchContainer);
     resultsOutput.appendChild(tabsHeader);
     resultsOutput.appendChild(nonFollowersPanel);
     resultsOutput.appendChild(fansPanel);
@@ -181,6 +192,25 @@ function buildUserListElement(users, emptyMessage) {
 
     container.appendChild(listDiv);
     return container;
+}
+
+function filterUserCards(query) {
+    const searchTerm = query.toLowerCase().trim();
+
+    // Target cards inside the currently active tab panel
+    const activePanel = document.querySelector(".tab-content.active");
+    if (!activePanel) return;
+
+    const cards = activePanel.querySelectorAll(".user-card");
+
+    cards.forEach(card => {
+        const username = card.textContent.toLowerCase();
+        if (username.includes(searchTerm)) {
+            card.style.display = ""; // Show matching card
+        } else {
+            card.style.display = "none"; // Hide non-matching card
+        }
+    });
 }
 
 function getCleanInstagramUrl(username) {
