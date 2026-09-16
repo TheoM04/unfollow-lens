@@ -7,14 +7,24 @@ document.addEventListener("DOMContentLoaded", () => {
     let followersSet = null;
     let followingList = null;
 
+    // Process Followers File
     followersInput.addEventListener("change", (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            followersOutput.textContent = `Selected: ${file.name}`;
-        }
-
         readFile(event, (parsedData) => {
-            followersSet = new Set(parsedData.map((user) => user.string_list_data[0].value));
+            const outputElem = document.getElementById("selected-followers");
+
+            if (!isValidFollowersFile(parsedData)) {
+                outputElem.textContent = "Invalid file! Please select 'followers_1.json'.";
+                outputElem.style.color = "#d9534f";
+                followersSet = null;
+                return;
+            }
+
+            outputElem.textContent = `Loaded ${parsedData.length} followers!`;
+            outputElem.style.color = "#24cb0a"
+
+            followersSet = new Set(
+                parsedData.map((user) => user.string_list_data[0].value)
+            );
 
             if (followersSet !== null && followingList !== null) {
                 checkAndCompare(followersSet, followingList);
@@ -22,19 +32,27 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // Process Following File
     followingInput.addEventListener("change", (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            followingOutput.textContent = `Selected: ${file.name}`;
-        }
-
         readFile(event, (parsedData) => {
+            const outputElem = document.getElementById("selected-following");
+
+            if (!isValidFollowingFile(parsedData)) {
+                outputElem.textContent = "Invalid file! Please select 'following.json'.";
+                outputElem.style.color = "#d9534f";
+                followingList = null;
+                return;
+            }
+
             followingList = parsedData.relationships_following
                 .map((item) => ({
                     username: item.title,
                     href: getCleanInstagramUrl(item.title)
                 }))
-                .filter(user => !user.username.startsWith("__deleted__"));
+                .filter((user) => !user.username.startsWith("__deleted__"));
+
+            outputElem.textContent = `Loaded ${followingList.length} following accounts!`;
+            outputElem.style.color = "#24cb0a";
 
             if (followersSet !== null && followingList !== null) {
                 checkAndCompare(followersSet, followingList);
