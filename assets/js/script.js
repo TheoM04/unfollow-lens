@@ -171,6 +171,10 @@ function buildUserListElement(users, emptyMessage) {
         link.rel = "noopener noreferrer";
         link.textContent = `@${user.username}`;
 
+        card.addEventListener("click", () => {
+            window.open(user.href, "_blank", "noopener,noreferrer");
+        });
+
         card.appendChild(link);
         listDiv.appendChild(card);
     });
