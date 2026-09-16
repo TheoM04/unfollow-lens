@@ -1,0 +1,40 @@
+{
+    "relationships_following": [
+        {
+            "title": "__deleted__rmgtgneirgnoemgr",
+            "string_list_data": [
+                {
+                    "href": "https://www.instagram.com/instagram",
+                    "timestamp": 1789399186
+                }
+            ]
+        },
+        {
+            "title": "google",
+            "string_list_data": [
+                {
+                    "href": "https://www.instagram.com/google",
+                    "timestamp": 1788817128
+                }
+            ]
+        },
+        {
+            "title": "instagram",
+            "string_list_data": [
+                {
+                    "href": "https://www.instagram.com/instagram",
+                    "timestamp": 1789399186
+                }
+            ]
+        },
+        {
+            "title": "lego",
+            "string_list_data": [
+                {
+                    "href": "https://www.instagram.com/lego",
+                    "timestamp": 1679061728
+                }
+            ]
+        }
+    ]
+}

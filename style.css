@@ -1,0 +1,84 @@
+/* Container that holds both file input boxes */
+.upload-container {
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+    justify-content: center;
+    margin-bottom: 1%;
+}
+
+/* Individual card wrapper for each input */
+.upload-card {
+    flex: 1;
+    padding: 2%;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+/* Tab Buttons Container */
+.tabs-header {
+    display: flex;
+    gap: 10px;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 20px;
+}
+
+/* Individual Tab Button */
+.tab-btn {
+    padding: 10px 20px;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+    color: #0095f6;
+}
+
+/* Active Tab Button Styling */
+.tab-btn.active {
+    color: #0095f6;
+    border-bottom-color: #0095f6;
+}
+
+/* Hide inactive tab contents by default */
+.tab-content {
+    display: none;
+}
+
+/* Show active tab content */
+.tab-content.active {
+    display: block;
+}
+
+/* User Card Grid Styling */
+.user-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.user-card {
+    padding: 12px;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.user-card a {
+    color: #0095f6;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.user-card a:hover {
+    text-decoration: underline;
+}

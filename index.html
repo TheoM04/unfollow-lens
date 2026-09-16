@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unfollow Lens</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/logo.png">
     <script type="text/javascript" src="script.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -12,10 +13,25 @@
 <body>
 
     <h1>Unfollow Lens</h1>
-    <p>Select your Instagram followers JSON file to test parsing:</p>
 
-    <input type="file" id="followers-input" accept=".json">
-    <p id="output"></p>
+    <div class="upload-container">
+        <div class="upload-card">
+            <p>Select your Instagram followers_1.json file:</p>
+            <input type="file" id="followers-input" accept=".json">
+            <p id="followers-output"></p>
+        </div>
+        <div class="upload-card">
+            <p>Select your Instagram following.json file:</p>
+            <input type="file" id="following-input" accept=".json">
+            <p id="following-output"></p>
+        </div>
+    </div>
+
+    <p class="disclaimer">
+        <small>Note: Clicking a profile link will open Instagram. Accounts that have been deleted or renamed since your
+            data export may show "Page not available".</small>
+    </p>
+    <div id="results-output"></div>
 
 </body>
 
