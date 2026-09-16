@@ -1,0 +1,138 @@
+:root {
+    --primary-color: #885341;
+    --primary-hover: #6e4132;
+    --text-muted: #707070;
+    --text-main: #2b2b2b;
+    --bg-card: #ffffff;
+    --border-color: #e2e8f0;
+    --border-dashed: #d0b8b0;
+    --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    color: var(--text-main);
+    background-color: #f6f6f6;
+    margin: 0;
+    padding: 24px;
+}
+
+h1 {
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+/* Container that holds both file input boxes */
+.upload-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Individual card wrapper for each input */
+.upload-card {
+    flex: 1;
+    padding: 24px;
+    border: 2px dashed var(--border-dashed);
+    border-radius: 12px;
+    background-color: var(--bg-card);
+    text-align: center;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.upload-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(136, 83, 65, 0.08);
+}
+
+.upload-card p {
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-top: 0;
+}
+
+.disclaimer {
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+/* Tab Buttons Container */
+.tabs-header {
+    display: flex;
+    gap: 12px;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 24px;
+    justify-content: center;
+}
+
+/* Individual Tab Button */
+.tab-btn {
+    padding: 12px 24px;
+    border: none;
+    background: none;
+    font-family: var(--font-family);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+    color: var(--primary-color);
+}
+
+/* Active Tab Button Styling */
+.tab-btn.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+/* Hide inactive tab contents by default */
+.tab-content {
+    display: none;
+}
+
+/* Show active tab content */
+.tab-content.active {
+    display: block;
+}
+
+/* User Card Grid Styling */
+.user-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.user-card {
+    padding: 14px;
+    background: #f9f9f9;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.user-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+}
+
+.user-card a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.user-card a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}

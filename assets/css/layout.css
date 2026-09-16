@@ -1,0 +1,10 @@
+@media (max-width: 768px) {
+    .upload-container {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .upload-card {
+        margin: 0;
+    }
+}

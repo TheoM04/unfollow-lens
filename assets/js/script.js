@@ -19,9 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(`Followers set: ${parsedData.map((user) => user.string_list_data[0].value)}`)
 
             // Render followers list UI
-            followersOutput.innerHTML = parsedData
-                .map((user) => `<p>${user.string_list_data[0].value}</p>`)
-                .join("");
+            //followersOutput.innerHTML = parsedData
+            //    .map((user) => `<p>${user.string_list_data[0].value}</p>`)
+            //    .join("");
 
             if (followersSet !== null && followingList !== null)
                 checkAndCompare(followersSet, followingList);
@@ -40,9 +40,9 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(`Following list: ${followingList.map(user => user.username)}`)
 
             // Render following list UI
-            followingOutput.innerHTML = followingList
-                .map((user) => `<p>${user.username}</p>`)
-                .join("");
+            //followingOutput.innerHTML = followingList
+            //    .map((user) => `<p>${user.username}</p>`)
+            //    .join("");
 
             if (followersSet !== null && followingList !== null)
                 checkAndCompare(followersSet, followingList);
